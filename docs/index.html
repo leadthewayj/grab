@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grab for Android</title>
+<meta name="description" content="Save video, audio, transcripts and thumbnails from a link, right on your Android phone. Share a link to Grab from any app and the file lands on your phone.">
+<meta name="theme-color" content="#0e0f11">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Grab for Android">
+<meta property="og:description" content="Share a link to Grab from any app and the file lands on your phone. Video, audio, transcripts and thumbnails.">
+<meta property="og:image" content="https://leadthewayj.github.io/grab/og.png">
+<meta property="og:url" content="https://leadthewayj.github.io/grab/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: one column on phones (where most visitors land from a shared link), text beside the phone on wide screens. */
+:root {
+  color-scheme: dark;
+  --bg: #0e0f11;          /* graphite, the app's own ground */
+  --raised: #17191c;
+  --line: #262a2e;
+  --ink: #f4f6f2;
+  --muted: #a3aaa6;
+  --lime: #b8f23c;        /* Grab's lime: the download action only */
+  --on-lime: #12160a;
+  --font: "Figtree", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --r: 14px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--font); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+
+header { padding-block: 18px; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 20px; letter-spacing: -.01em; }
+.brand img { width: 34px; height: 34px; }
+.nav { display: flex; gap: 20px; font-size: 15px; color: var(--muted); }
+.nav a { text-decoration: none; }
+.nav a:hover { color: var(--ink); }
+
+.hero { padding-block: 40px 72px; }
+.hero .wrap { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+@media (min-width: 860px) { .hero .wrap { grid-template-columns: 1.1fr .9fr; } .hero { padding-block: 64px 96px; } }
+.hero-text { min-width: 0; }
+h1 { font-size: clamp(44px, 8vw, 76px); line-height: 1.02; letter-spacing: -.035em; font-weight: 800; margin: 0 0 18px; text-wrap: balance; }
+.lead { font-size: clamp(18px, 2.2vw, 21px); color: var(--muted); max-width: 34em; margin: 0 0 32px; }
+.lead strong { color: var(--ink); font-weight: 600; }
+.get { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+.btn { display: inline-flex; align-items: center; gap: 12px; background: var(--lime); color: var(--on-lime); text-decoration: none;
+  font-weight: 700; font-size: 19px; padding: 17px 26px; border-radius: 999px; transition: transform .15s ease, filter .15s ease; }
+.btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn svg { width: 22px; height: 22px; }
+.meta { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.alt { margin-top: 22px; font-size: 15px; color: var(--muted); }
+.alt a { color: var(--ink); text-underline-offset: 3px; }
+
+.phone { justify-self: center; width: min(300px, 78vw); aspect-ratio: 9 / 16; border-radius: 40px; padding: 10px;
+  background: #050607; box-shadow: 0 0 0 1px var(--line), 0 40px 90px rgba(0,0,0,.55); }
+.phone video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 31px; background: #000; }
+
+section { padding-block: 64px; border-top: 1px solid var(--line); }
+h2 { font-size: clamp(28px, 4vw, 38px); line-height: 1.12; letter-spacing: -.025em; font-weight: 800; margin: 0 0 14px; text-wrap: balance; }
+.sub { color: var(--muted); max-width: 40em; margin: 0 0 32px; }
+
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.mode { background: var(--raised); border-radius: var(--r); padding: 22px; min-width: 0; }
+.mode h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -.01em; }
+.mode p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.mode .fmt { display: block; margin-top: 12px; font-size: 13px; color: var(--ink); opacity: .7; font-variant-numeric: tabular-nums; }
+.extras { margin: 28px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.extras li { border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-size: 15px; color: var(--muted); }
+
+.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 18px; max-width: 42em; }
+.steps li { padding-left: 34px; position: relative; }
+.steps li::before { content: ""; position: absolute; left: 4px; top: .45em; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--lime); }
+.steps b { font-weight: 600; }
+.note { margin-top: 28px; max-width: 42em; color: var(--muted); font-size: 15.5px; }
+
+.faq { display: grid; gap: 28px 40px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.faq div { min-width: 0; }
+.faq h3 { margin: 0 0 6px; font-size: 18px; }
+.faq p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+.again { text-align: center; }
+.again .get { justify-content: center; }
+
+footer { border-top: 1px solid var(--line); padding-block: 36px 48px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+footer p { margin: 0; max-width: 36em; }
+footer nav { display: flex; gap: 18px; }
+
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.svg" alt="">Grab</a>
+    <nav class="nav" aria-label="Other versions">
+      <a href="#install">Install</a>
+      <a href="https://github.com/leadthewayj/grab#readme">Mac</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <h1>Grab for Android</h1>
+        <p class="lead">Save video, audio, transcripts and thumbnails from a link. <strong>Share a link to Grab from any app</strong> and the file lands on your phone. No computer needed.</p>
+        <div class="get">
+          <a class="btn" href="https://github.com/leadthewayj/grab/releases/download/android-v1.0/Grab-Android.apk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+            Download for Android
+          </a>
+          <span class="meta">Version 1.0 · 57 MB · Android 11 or newer</span>
+        </div>
+        <p class="alt">Opening this on a computer? Send the page to your phone and download it there. On a Mac, <a href="https://github.com/leadthewayj/grab#readme">get Grab for Mac</a>.</p>
+      </div>
+      <div class="phone">
+        <video src="promo.mp4" poster="poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Grab on an Android phone: a link shared from YouTube downloads as video, audio, a transcript and a thumbnail"></video>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Share a link. Get the file.</h2>
+      <p class="sub">Tap Share on a video in YouTube, Chrome or most other apps and pick Grab. Choose what you want and tap Download. The download runs on your phone and the file saves to your Download folder.</p>
+      <div class="modes">
+        <div class="mode"><h3>Video</h3><p>The whole video, ready for your gallery.</p><span class="fmt">MP4 · Best, 1080p, 720p or 480p</span></div>
+        <div class="mode"><h3>Audio</h3><p>Just the sound, for music, podcasts and talks.</p><span class="fmt">MP3 or M4A</span></div>
+        <div class="mode"><h3>Transcript</h3><p>What's said in a video, as plain text you can search and quote.</p><span class="fmt">TXT</span></div>
+        <div class="mode"><h3>Thumbnail</h3><p>The cover image on its own.</p><span class="fmt">JPG</span></div>
+      </div>
+      <ul class="extras" aria-label="Also">
+        <li>Paste a whole list of links at once</li>
+        <li>Trim to the part you want</li>
+        <li>Whole playlists</li>
+        <li>Keeps going when you switch apps</li>
+        <li>Open or share from the Saved tab</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>Install</h2>
+      <p class="sub">Grab isn't in the Play Store, so Android asks you to allow it once.</p>
+      <ul class="steps">
+        <li>On your phone, tap <b>Download for Android</b> on this page.</li>
+        <li>Open the downloaded file. When Android asks, allow your browser to <b>install unknown apps</b>, then go back.</li>
+        <li>Tap <b>Install</b>, then <b>Open</b>. Grab is now in your share menu.</li>
+      </ul>
+      <p class="note">Chrome may warn that the file could be harmful. It says that about every app downloaded from outside the Play Store.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Good to know</h2>
+      <div class="faq">
+        <div><h3>Which phones?</h3><p>Android 11 or newer on a 64-bit phone, which covers almost every phone made since 2019.</p></div>
+        <div><h3>Where do files go?</h3><p>Download/Grab on your phone. Videos usually show up in your gallery app under Download.</p></div>
+        <div><h3>A site stopped working</h3><p>Sites change often. Grab updates its download engine once a day; to update right away, tap <b>Update the downloader</b> at the bottom of the app.</p></div>
+        <div><h3>New versions</h3><p>Download the newest version from this page and install it over the old one. Your saved files stay where they are.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="again">
+    <div class="wrap">
+      <h2>Get Grab on your phone</h2>
+      <p class="sub" style="margin-inline:auto">Free. About a minute to install.</p>
+      <div class="get">
+        <a class="btn" href="https://github.com/leadthewayj/grab/releases/download/android-v1.0/Grab-Android.apk">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+          Download for Android
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Only download things you have the right to save, such as your own uploads or material you have permission to use.</p>
+    <nav aria-label="Links">
+      <a href="https://github.com/leadthewayj/grab/releases">All releases</a>
+      <a href="https://github.com/leadthewayj/grab#readme">Grab for Mac</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
